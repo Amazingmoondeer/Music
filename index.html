@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Search & Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f7f7f7; }
+    #searchBar { width: 80%; padding: 8px; font-size: 16px; }
+    #tracks { margin-top: 20px; }
+    .track { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .track audio { width: 100%; margin-top: 5px; }
+    .download-btn { margin-top: 8px; padding: 8px 12px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px; }
+    .download-btn:hover { background: #1976D2; }
+  </style>
+</head>
+<body>
+  <h1>🎵 Search & Download Music</h1>
+  <input type="text" id="searchBar" placeholder="Search for tracks..." />
+  <button onclick="searchTracks()">Search</button>
+
+  <div id="tracks"></div>
+
+  <script>
+    const CLIENT_ID = 'YOUR_JAMENDO_CLIENT_ID'; // Replace with your own
+    async function searchTracks() {
+      const query = document.getElementById('searchBar').value;
+      const res = await fetch(
+        `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}` +
+        `&format=jsonpretty&limit=10&search=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+      displayTracks(data.results || []);
+    }
+
+    function displayTracks(tracks) {
+      const container = document.getElementById('tracks');
+      container.innerHTML = '';
+      if (!tracks.length) {
+        container.textContent = 'No tracks found.';
+        return;
+      }
+      tracks.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'track';
+        div.innerHTML = `
+          <strong>${t.name}</strong> by ${t.artist_name}<br>
+          <audio controls src="${t.audio}"></audio><br>
+          <a class="download-btn" href="${t.audio}" download="${t.name}.mp3">Download MP3</a>
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
