@@ -1,74 +1,36 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Music Downloads</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f2f2f2;
-    }
-    h1 {
-      color: #333;
-    }
-    .track {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .track audio {
-      width: 100%;
-      margin-top: 10px;
-    }
-    .download-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 12px;
-      background: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    .download-btn:hover {
-      background: #45a049;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player Interface</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>🎶 Free Music Downloads</h1>
 
-  <div class="track">
-    <strong>Track 1 – Relaxing Vibes</strong>
-    <audio controls>
-      <source src="music/track1.mp3" type="audio/mp3">
+<div id="music-player" class="player">
+  <audio id="audio-element">
+      <source src="path-to-your-first-song.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
-    </audio>
-    <br />
-    <a class="download-btn" href="music/track1.mp3" download>Download MP3</a>
+  </audio>
+  <div class="controls">
+      <button id="play-pause" onclick="togglePlayPause()">Play</button>
+      <button id="prev" onclick="playPreviousTrack()">Prev</button>
+      <button id="next" onclick="playNextTrack()">Next</button>
   </div>
+  <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+  </div>
+  <div class="playlist">
+      <ul id="playlist">
+          <li onclick="changeTrack('path-to-your-first-song.mp3', this)">First Song Title</li>
+          <li onclick="changeTrack('path-to-your-second-song.mp3', this)">Second Song Title</li>
+          <li onclick="changeTrack('path-to-your-third-song.mp3', this)">Third Song Title</li>
+          <!-- More songs can be added here -->
+      </ul>
+  </div>
+</div>
 
-  <div class="track">
-    <strong>Track 2 – Uplifting Beat</strong>
-    <audio controls>
-      <source src="music/track2.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <br />
-    <a class="download-btn" href="music/track2.mp3" download>Download MP3</a>
-  </div>
-
-  <div class="track">
-    <strong>Track 3 – Chill Night</strong>
-    <audio controls>
-      <source src="music/track3.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <br />
-    <a class="download-btn" href="music/track3.mp3" download>Download MP3</a>
-  </div>
+<script src="script.js"></script>
 </body>
 </html>
