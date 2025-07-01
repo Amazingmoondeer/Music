@@ -1,0 +1,86 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Music Player Styles */
+.player {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Control Button Styles */
+.controls button {
+  background: #ff9800;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.controls button:hover {
+  background: #e68900;
+}
+
+/* Progress Bar Styles */
+.progress-bar {
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  height: 10px;
+  margin-top: 20px;
+}
+
+.progress {
+  background: #ff9800;
+  height: 10px;
+  width: 0%;
+}
+
+/* Playlist Styles */
+.playlist {
+  margin-top: 20px;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#playlist li {
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+#playlist li:last-child {
+  border-bottom: none;
+}
+
+#playlist li:hover, #playlist li.playing {
+  background: #ff9800;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 600px) {
+  .player {
+      width: auto;
+      padding: 10px;
+  }
+
+  .controls button {
+      padding: 5px 10px;
+      font-size: 14px;
+  }
+}
