@@ -1,24 +1,196 @@
-div class="container">
-    <div class="column add-bottom">
-        <div id="mainwrap">
-            <div id="nowPlay">
-                <span id="npAction">Paused...</span><span id="npTitle"></span>
-            </div>
-            <div id="audiowrap">
-                <div id="audio0">
-                    <audio id="audio1" preload controls>Your browser does not support HTML5 Audio! 😢</audio>
-                </div>
-                <div id="tracks">
-                    <a id="btnPrev">&larr;</a><a id="btnNext">&rarr;</a>
-                </div>
-            </div>
-            <div id="plwrap">
-                <ul id="plList"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="column add-bottom center">
-        <p>Music by <a href="http://www.mythium.net/">Mythium</a></p>
-        <p>Download: <a href="https://archive.org/download/mythium/mythium_vbr_mp3.zip">zip</a> / <a href="https://archive.org/download/mythium/mythium_archive.torrent">torrent</a></p>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Music Player</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .player {
+      background: #1f1f1f;
+      border-radius: 15px;
+      width: 350px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .cover {
+      width: 100%;
+      height: 200px;
+      background: #333;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 20px;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .info h2, .info h4 {
+      margin: 5px 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .controls button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .progress {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .progress input[type=range] {
+      width: 100%;
+    }
+
+    .download {
+      text-align: center;
+    }
+
+    .download button {
+      background: #2196F3;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .download button:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="player">
+  <div class="cover" id="cover" style="background-image: url('https://via.placeholder.com/300x200');"></div>
+
+  <div class="info">
+    <h2 id="title">Track Title</h2>
+    <h4 id="artist">Artist Name</h4>
+  </div>
+
+  <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <div class="controls">
+    <button onclick="prevTrack()">⏮</button>
+    <button onclick="togglePlay()">▶️/⏸</button>
+    <button onclick="nextTrack()">⏭</button>
+  </div>
+
+  <div class="progress">
+    <input type="range" id="progressBar" value="0" onchange="seekAudio(this)">
+  </div>
+
+  <div class="download">
+    <button onclick="downloadTrack()">⬇ Download</button>
+  </div>
 </div>
+
+<script>
+  const audio = document.getElementById('audio');
+  const progressBar = document.getElementById('progressBar');
+  const title = document.getElementById('title');
+  const artist = document.getElementById('artist');
+  const cover = document.getElementById('cover');
+
+  const playlist = [
+    {
+      title: "SoundHelix Track 1",
+      artist: "Artist A",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      cover: "https://via.placeholder.com/300x200?text=Track+1"
+    },
+    {
+      title: "SoundHelix Track 2",
+      artist: "Artist B",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+      cover: "https://via.placeholder.com/300x200?text=Track+2"
+    }
+  ];
+
+  let currentTrack = 0;
+
+  function loadTrack(index) {
+    const track = playlist[index];
+    audio.src = track.src;
+    title.innerText = track.title;
+    artist.innerText = track.artist;
+    cover.style.backgroundImage = `url('${track.cover}')`;
+    audio.load();
+  }
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  function nextTrack() {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    loadTrack(currentTrack);
+    audio.play();
+  }
+
+  function prevTrack() {
+    currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrack);
+    audio.play();
+  }
+
+  function updateProgressBar() {
+    progressBar.value = (audio.currentTime / audio.duration) * 100;
+  }
+
+  function seekAudio(el) {
+    audio.currentTime = (el.value / 100) * audio.duration;
+  }
+
+  function downloadTrack() {
+    const a = document.createElement('a');
+    a.href = playlist[currentTrack].src;
+    a.download = playlist[currentTrack].title + ".mp3";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  audio.addEventListener('timeupdate', updateProgressBar);
+  audio.addEventListener('ended', nextTrack);
+
+  loadTrack(currentTrack);
+</script>
+
+</body>
+</html>
