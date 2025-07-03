@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="player">
+    <div class="now-playing">
+      <img src="https://i.imgur.com/U4Q9WbT.png" alt="Album Art" class="album-art">
+      <div class="song-info">
+        <h2 id="title">Song Title</h2>
+        <h3 id="artist">Artist Name</h3>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="shuffle">🔀</button>
+      <button id="prev">⏮</button>
+      <button id="play">▶️</button>
+      <button id="next">⏭</button>
+      <button id="repeat">🔁</button>
+    </div>
+
+    <div class="progress">
+      <span id="current">0:00</span>
+      <input type="range" id="progress-bar" value="0">
+      <span id="duration">0:00</span>
+    </div>
+
+    <div class="bottom-controls">
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+      <span>🔊</span>
+    </div>
+
+    <ul class="playlist" id="playlist">
+      <!-- Playlist items injected by JS -->
+    </ul>
+
+    <audio id="audio"></audio>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
