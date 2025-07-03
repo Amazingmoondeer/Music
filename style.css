@@ -1,0 +1,98 @@
+body {
+  background: #111;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.player {
+  background: #222;
+  padding: 20px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.album-art {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.song-info {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.song-info h2 {
+  margin: 5px 0;
+  font-size: 20px;
+}
+
+.song-info h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.controls button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.controls button:hover {
+  color: #1db954;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#progress-bar {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.bottom-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#volume {
+  margin-right: 10px;
+}
+
+.playlist {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.playlist li {
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.playlist li:hover {
+  background: #333;
+}
